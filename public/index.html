@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f7f3">
+  <meta name="description" content="Ukeplan, pakkeliste, vær og aktiviteter for 3. og 7. klasse ved Fagerholt skole.">
+  <title>Skolesekken · Morgenklar</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-mode="both">
+<div class="shell">
+  <header class="header">
+    <a class="logo" href="/" aria-label="Skolesekken – familieoversikten">
+      <div class="logo-icon" aria-hidden="true">🎒</div>
+      <div><div class="logo-text">skole<span>sekken.</span></div><div class="logo-sub">MORGENKLAR · FAGERHOLT</div></div>
+    </a>
+    <div class="header-side">
+      <span id="current-date" class="date-chip"></span>
+      <span id="week-number" class="wk-chip">UKE —</span>
+      <div class="top-actions">
+        <button type="button" id="refresh" class="refresh-btn" title="Hent nye ukeplaner og værdata" aria-label="Oppdater ukeplaner og vær"><span class="refresh-icon">↻</span> Oppdater</button>
+        <a class="source-btn" id="top-source" target="_blank" rel="noopener noreferrer" href="https://www.minskole.no/fagerholt/seksjon/22636">Skolens ukeplan ↗</a>
+      </div>
+    </div>
+  </header>
+  <div class="container-head">
+    <div class="seg" role="tablist" aria-label="Velg visning">
+      <button type="button" data-mode="both" role="tab" aria-selected="true" class="selected"><span class="bubble">🏠</span> Begge</button>
+      <button type="button" data-mode="3" role="tab" aria-selected="false"><span class="bubble">🎨</span> 3. klasse</button>
+      <button type="button" data-mode="7" role="tab" aria-selected="false"><span class="bubble">🎾</span> 7. klasse</button>
+    </div>
+    <div class="hint">To sekker. Én enkel morgen.</div>
+  </div>
+  <div class="main-top">
+    <section class="headline">
+      <div><div class="kicker" id="header-kicker"></div><h1 id="header-title">Morgenklar! ☀️</h1><p id="header-desc">Sjekk skoledagen og pakk det som trengs.</p></div>
+    </section>
+    <aside class="weather" aria-label="Værmelding for valgt dag">
+      <div class="weather-top"><span class="tag muted">VÆR PÅ SKOLEN</span><span class="pill">kl. 08–15</span></div>
+      <div class="weather-main"><span class="weather-icon" id="weather-icon">🌤️</span><span class="weather-number" id="weather-number">— °C</span></div>
+      <p class="weather-sub" id="weather-desc">Starter værvisning…</p>
+      <div class="weather-foot"><span id="weather-extra"></span> · <a href="https://pent.no/58.14671,7.9956" target="_blank" rel="noopener noreferrer">Pent ↗</a></div>
+    </aside>
+  </div>
+  <div id="warnings" class="warnings" role="status" aria-live="polite"></div>
+  <nav class="weekdays" aria-label="Velg skoledag" id="weekdays"></nav>
+  <main>
+    <section id="family-view">
+      <div class="family-header">
+        <div><div class="section-label">Morgenoversikt</div><h2>Dette trenger barna i dag</h2></div>
+        <span class="small muted" id="family-day"></span>
+      </div>
+      <div class="family-cards" id="family-cards"></div>
+      <div class="family-bottom" id="family-bottom"></div>
+    </section>
+    <section id="detail-view" class="hidden">
+      <div class="source-row"><span id="grade-status" class="status-word"></span><a id="pdf-link" href="#" target="_blank" rel="noopener noreferrer">Se original ukeplan ↗</a></div>
+      <div class="daily-layout">
+        <div class="stack"><section class="card" id="day-program"></section></div>
+        <div class="stack"><section class="card bag-card" id="bag-section"></section></div>
+      </div>
+      <div class="weekstrip">
+        <section class="secondary-card" id="homework-section"></section>
+        <section class="secondary-card" id="theme-section"></section>
+      </div>
+      <details class="more" id="notices-details"><summary><span>📬 Beskjeder fra skolen <span class="numb" id="notice-count"></span></span><span aria-hidden="true">⌄</span></summary><div class="more-content" id="notices"></div></details>
+    </section>
+  </main>
+  <footer class="footer">
+    <span>Planer fra Fagerholt skole · vær fra Yr/Meteorologisk institutt (CC BY 4.0). Sjekk original-PDF ved tvil.</span>
+    <span><a href="https://www.minskole.no/fagerholt/seksjon/22636" target="_blank" rel="noopener noreferrer">3. trinn ↗</a> · <a href="https://www.minskole.no/fagerholt/seksjon/22640" target="_blank" rel="noopener noreferrer">7. trinn ↗</a></span>
+  </footer>
+</div>
+<script type="module" src="/app.js"></script>
+<script>
+// Helps diagnose deploys where a JS module failed to load altogether.
+setTimeout(function () {
+  if (window.__skolesekkenStarted) return;
+  var weather = document.getElementById('weather-desc');
+  if (weather) weather.textContent = 'Appen startet ikke – oppdater siden eller sjekk publiseringen.';
+  var alerts = document.getElementById('warnings');
+  if (alerts) alerts.innerHTML = '<div class="warning danger">Skolesekken klarte ikke å starte. Sjekk at alle filene i public-mappen er publisert.</div>';
+}, 7000);
+</script>
+</body>
+</html>
